@@ -3,17 +3,19 @@ import re
 import zipfile
 import pandas as pd
 import httpx
+import xml.etree.ElementTree as ET
+import numpy as np
 import json
 import hashlib
-import shutil
+import urllib.parse
 import tempfile
+from bs4 import BeautifulSoup
 from typing import Dict, Any, List, Optional
 import re
+import asyncio  # Make sure this import is present
 import tempfile
 import shutil
 import subprocess
-import httpx
-import json
 import csv
 import traceback
 from typing import Optional, Dict, Any, List
@@ -1433,8 +1435,6 @@ async def analyze_sentiment(text: str, api_key: str = "dummy_api_key") -> str:
     """
     Analyze sentiment of text using OpenAI API
     """
-    import httpx
-    import json
 
     url = "https://api.openai.com/v1/chat/completions"
 
@@ -1481,8 +1481,6 @@ async def count_tokens(text: str) -> str:
     """
     Count tokens in a message sent to OpenAI API
     """
-    import httpx
-    import json
 
     url = "https://api.openai.com/v1/chat/completions"
 
@@ -1603,9 +1601,7 @@ async def count_cricket_ducks(page_number: int = 3) -> str:
         Total number of ducks on the specified page
     """
     try:
-        import pandas as pd
-        import httpx
-        from bs4 import BeautifulSoup
+
 
         # Construct the URL for the specified page
         url = f"https://stats.espncricinfo.com/ci/engine/stats/index.html?class=2;page={page_number};template=results;type=batting"
@@ -1689,10 +1685,6 @@ async def get_imdb_movies(
         JSON data of movies with their ID, title, year, and rating
     """
     try:
-        import httpx
-        from bs4 import BeautifulSoup
-        import json
-        import re
 
         # Construct the URL with the rating filter
         url = f"https://www.imdb.com/search/title/?title_type=feature&user_rating={min_rating},{max_rating}&sort=user_rating,desc"
@@ -1775,9 +1767,6 @@ async def generate_country_outline(country: str) -> str:
         Markdown outline of the country's Wikipedia page
     """
     try:
-        import httpx
-        from bs4 import BeautifulSoup
-        import urllib.parse
 
         # Format the country name for the URL
         formatted_country = urllib.parse.quote(country.replace(" ", "_"))
@@ -1855,8 +1844,6 @@ async def get_weather_forecast(city: str) -> str:
         JSON data of weather forecast with dates and descriptions
     """
     try:
-        import httpx
-        import json
 
         # Step 1: Get the location ID for the city
         locator_url = "https://locator-service.api.bbci.co.uk/locations"
@@ -2126,10 +2113,6 @@ async def compute_document_similarity(docs: List[str], query: str) -> str:
         JSON response with the most similar documents
     """
     try:
-        import numpy as np
-        import json
-        import httpx
-        from typing import List, Dict
 
         # Function to calculate cosine similarity
         def cosine_similarity(vec1, vec2):
@@ -2455,9 +2438,7 @@ async def get_delhi_bounding_box() -> str:
         Information about Delhi's bounding box
     """
     try:
-        import httpx
-        import json
-        import asyncio  # Make sure this import is present
+
 
         # Nominatim API endpoint
         url = "https://nominatim.openstreetmap.org/search"
@@ -2517,8 +2498,7 @@ async def find_duckdb_hn_post() -> str:
         Information about the post and its link
     """
     try:
-        import httpx
-        import xml.etree.ElementTree as ET
+
 
         # HNRSS API endpoint for searching posts with minimum points
         url = "https://hnrss.org/newest"
@@ -2597,9 +2577,6 @@ async def find_newest_seattle_github_user() -> str:
         Information about the user and when their profile was created
     """
     try:
-        import httpx
-        import json
-        from datetime import datetime
 
         # GitHub API endpoint for searching users
         url = "https://api.github.com/search/users"
